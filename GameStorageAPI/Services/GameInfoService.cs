@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
 
-// TODO: This shit is all FUCKD. it is stopping the entire service everytime a spannerconnection is hit.
+// TODO: Make this class work
 
 namespace GameStorageAPI.Services
 {
@@ -32,7 +32,7 @@ namespace GameStorageAPI.Services
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
                     //return await reader.ReadAsync();
-                    // todo: find a way to return the shit
+                    // todo: fix
                     return null;
                 }
             }
@@ -47,7 +47,7 @@ namespace GameStorageAPI.Services
                 using (var reader = await cmd.ExecuteReaderAsync())
                 {
                     //return await reader.ReadAsync();
-                    // todo: find a way to return the shit
+                    // todo: fix
                     return "";
                 }
             }
