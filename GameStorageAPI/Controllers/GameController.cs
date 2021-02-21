@@ -35,8 +35,8 @@ namespace GameStorageAPI.Controllers
         public async Task<IActionResult> GetGame([FromRoute] string name)
         {
             var path = await infoService.GetGamePath(name);
-            var stream = await fileService.GetFile(path);
-            return File(stream, "application/octet-stream");
+            var memory = await fileService.GetFile(path);
+            return File(memory, "application/octet-stream");
         }
 
         [HttpPost, DisableRequestSizeLimit]

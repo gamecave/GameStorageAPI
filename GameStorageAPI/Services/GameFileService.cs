@@ -33,10 +33,10 @@ namespace GameStorageAPI.Services
 
         public async Task<Stream> GetFile(string path)
         {
-            var ret = new MemoryStream();
-            // TODO: need the ret object to get the stream of the file
-            storage.DownloadObject(BUCKET_NAME, path, ret);
-            return ret;
+            var mem = new MemoryStream();
+            storage.DownloadObject(BUCKET_NAME, path, mem);
+            mem.Position = 0;
+            return mem;
         }
     }
 }
