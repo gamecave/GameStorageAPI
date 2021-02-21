@@ -28,13 +28,22 @@ namespace GameStorageAPI.Controllers
         [HttpGet]
         public async Task<IEnumerable<string>> GetGameNames()
         {
+            throw new NotImplementedException();
             return await infoService.GetGameNames();
         }
 
-        [HttpGet("{name}")]
-        public async Task<IActionResult> GetGame([FromRoute] string name)
+        [HttpGet("name/{name}")]
+        public async Task<IActionResult> GetGameByName([FromRoute] string name)
         {
+            throw new NotImplementedException();
             var path = await infoService.GetGamePath(name);
+            var memory = await fileService.GetFile(path);
+            return File(memory, "application/octet-stream");
+        }
+
+        [HttpGet("path/{path}")]
+        public async Task<IActionResult> GetGameByPath([FromRoute] string path)
+        {
             var memory = await fileService.GetFile(path);
             return File(memory, "application/octet-stream");
         }
@@ -42,8 +51,9 @@ namespace GameStorageAPI.Controllers
         [HttpPost, DisableRequestSizeLimit]
         public async Task UploadGame(IFormFile file, string name, string author)
         {
+            // TODO: fix the database stuff then uncomment the next line
+            // await infoService.AddGameInfo(name, author, file.FileName);
             // TODO: should we should probably add the game name and author, then get the unique key from the db to use as the path
-            await infoService.AddGameInfo(name, author, file.FileName);
             await fileService.SaveFile(file);
         }
     }
