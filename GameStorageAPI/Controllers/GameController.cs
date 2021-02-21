@@ -12,7 +12,7 @@ namespace GameStorageAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class GameController : ControllerBase
+    public class GameController : Controller
     {
         private readonly ILogger<GameController> _logger;
         private GameFileService fileService;
@@ -26,6 +26,12 @@ namespace GameStorageAPI.Controllers
         }
 
         [HttpGet]
+        public IActionResult DevForm()
+        {
+            return View("DevForm");
+        }
+
+        [HttpGet("Names")]
         public async Task<IEnumerable<string>> GetGameNames()
         {
             throw new NotImplementedException();
@@ -49,12 +55,14 @@ namespace GameStorageAPI.Controllers
         }
 
         [HttpPost, DisableRequestSizeLimit]
-        public async Task UploadGame(IFormFile file, string name, string author)
+        public async Task<IActionResult> UploadGame(IFormFile file, string name, string author)
         {
             // TODO: fix the database stuff then uncomment the next line
             // await infoService.AddGameInfo(name, author, file.FileName);
             // TODO: should we should probably add the game name and author, then get the unique key from the db to use as the path
+            _logger.LogInformation(file.FileName);
             await fileService.SaveFile(file);
+            return View("DevForm");
         }
     }
 }
